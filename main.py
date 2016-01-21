@@ -9,7 +9,7 @@ class main():
     def promptUser(self):
         print("Thank you for choosing the Madlib Generator 6000!")
         username = input("What is your name?")
-        print("Nice to meet you, %s", username)
+        print("Nice to meet you, ", username)
 
         UI.displayMenu()
 
@@ -23,14 +23,13 @@ class main():
             break
 
         madlib_choice = int(input("Please choose a Madlib:"))
-        # UI.user_madlib = madlib_choice
 
         # UI.chooseMadlib()
 
         #  Road Trip
         if madlib_choice == 1:
-           UI.buildRoadTrip()
-           UI.wordChoice()
+           UI.buildRoadTrip(madlib)
+           UI.wordChoice(user_prompt_list)
 
         # Trip to the Dentist
         elif madlib_choice == 2:
@@ -91,13 +90,13 @@ class main():
         # Display word choice to user and get response
         for word in user_prompt_list:
             if word == "verb":
-                UI.requestVerb()
+                UI.requestVerb(madlib)
 
             elif word == "noun":
-                UI.requestNoun()
+                UI.requestNoun(madlib)
 
             elif word == "adjective":
-                UI.requestAdjective()
+                UI.requestAdjective(madlib)
 
 
     # Display new Madlib
