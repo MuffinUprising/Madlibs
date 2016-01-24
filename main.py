@@ -5,7 +5,6 @@ __author__ = 'casey'
 
 class main():
 
-
     # Prompt User
     def promptUser(self):
         print("Thank you for choosing the Madlib Generator 6000!")
@@ -13,7 +12,6 @@ class main():
         print("Nice to meet you,", username)
 
         UI.displayMenu()
-
 
     # User Menu
     def displayMenu(self):
@@ -48,19 +46,15 @@ class main():
         temp_verb = input("Please enter a verb: ")
         madlib.verb_list.append(temp_verb)
 
-
     # Request Noun
     def requestNoun(self):
         temp_noun = input("Please enter a noun: ")
         madlib.noun_list.append(temp_noun)
 
-
     # Request Adjective
     def requestAdjective(self):
         temp_adj = input("Please enter an adjective: ")
         madlib.adjective_list.append(temp_adj)
-
-
 
     # Word Choice
     def wordChoice(self):
@@ -100,12 +94,14 @@ class main():
         #build user prompt list
         UI.buildUserPromptList()
 
+    # Build list of prompts based on madlib
     def buildUserPromptList(self):
 
         for word in madlib.whole_madlib.split():
             if "$VERB$" in word or "$ADJECTIVE$" in word or "$NOUN$" in word:
                 user_prompt_list.append(word)
 
+    # Add word to madlib and pass to Madlib object
     def addNewWords(self):
 
         # Counters
@@ -154,6 +150,7 @@ class main():
                     print("adjective replaced")
                     adj_count += 1
 
+            # Display result to user and set madlib.new_madlib
             print("Here's the new madlib: ")
             madlib.new_madlib = temp_madlib
             print(madlib.new_madlib)
