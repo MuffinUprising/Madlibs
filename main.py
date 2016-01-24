@@ -10,7 +10,7 @@ class main():
     def promptUser(self):
         print("Thank you for choosing the Madlib Generator 6000!")
         username = input("What is your name?")
-        print("Nice to meet you, ", username)
+        print("Nice to meet you,", username)
 
         UI.displayMenu()
 
@@ -20,13 +20,11 @@ class main():
 
         global madlib
         while True:
-            for madlibStr in madlib_list:
-                print(madlibStr)
+            for madlib_str in madlib_list:
+                print(madlib_str)
             break
 
         madlib_choice = int(input("Please choose a Madlib:"))
-
-        # UI.chooseMadlib()
 
         #  Road Trip
         if madlib_choice == 1:
@@ -44,28 +42,6 @@ class main():
         else:
             print("Please enter choices 1-3")
             UI.displayMenu()
-
-
-    # Choose Madlib
-    def chooseMadlib(self):
-        #  Road Trip
-        if user_madlib == "1":
-            madlib.name = "Road Trip"
-            UI.buildRoadTrip(madlib)
-            UI.wordChoice()
-
-        # Trip to the Dentist
-        elif user_madlib == "2":
-            print("Sorry, no trip to the dentist is available at this time")
-            UI.displayMenu()
-        # Moons of Jupiter
-        elif user_madlib == "3":
-            print("sorry, there are no moons of Jupiter to explore at this time")
-            UI.displayMenu()
-        else:
-            print("Please enter choices 1-3")
-            UI.displayMenu()
-
 
     # Request Verb
     def requestVerb(self):
@@ -101,24 +77,7 @@ class main():
                 elif word == "$ADJECTIVE$":
                     UI.requestAdjective()
 
-            # For testing
-            print("verb list:")
-            for verb in madlib.verb_list:
-                print(verb)
-            print("\n")
-
-            print("noun list:")
-            for noun in madlib.noun_list:
-                print(noun)
-            print("\n")
-
-            print("adjective list:")
-            for adj in madlib.adjective_list:
-                print(adj)
-            print("\n")
-
-            UI.madlibInterpolator()
-
+            UI.addNewWords()
 
     # Display new Madlib
     def displayNewMadlib(self):
@@ -128,23 +87,18 @@ class main():
     # Add Road Trip data to madlib
     def buildRoadTrip(self, madlib):
 
-
         road_trip = "Last summer my family and I went on a road trip to Yellowstone Park. \n" \
-                   "We $ADJECTIVE$ in the family $NOUN$ at dawn and headed west. To our surprise, \n" \
+                   "We $VERB$ in the family $NOUN$ at dawn and headed west. To our surprise, \n" \
                    "the our pet $NOUN$ , Frosty was $VERB$ ing behind the back seat. We had no \n" \
                    "choice but to $VERB$ him with us. The only problem is that we didn't \n" \
-                   "bring his $NOUN$ . He $ADJECTIVE$ s it, but it is the only to get him to $VERB$ \n" \
+                   "bring his $NOUN$ . He $VERB$ s it, but it is the only to get him to $VERB$ \n" \
                    "for that long. We made it to Yellowstone anyway and Frosty was a good \n" \
                    "$NOUN$ for the entire trip. Yellowstone was $ADJECTIVE$ , I guess."
 
         madlib.whole_madlib = road_trip
 
-        #for testing
-        print(madlib.whole_madlib)
-
         #build user prompt list
         UI.buildUserPromptList()
-
 
     def buildUserPromptList(self):
 
@@ -152,70 +106,78 @@ class main():
             if "$VERB$" in word or "$ADJECTIVE$" in word or "$NOUN$" in word:
                 user_prompt_list.append(word)
 
-        # for testing
-        for prompt in user_prompt_list:
-            print(prompt)
+    def addNewWords(self):
 
-    def madlibInterpolator(self):
-        # Iterate over whole_madlib and replace $VERB$ with first item in verb_list
-        # Pop from list. Repeat for noun and adjective list
-        new_madlib = madlib.whole_madlib
+        # Counters
+        verb_count = 0
+        noun_count = 0
+        adj_count = 0
 
-        while True:
-            print("Interpolator initiated...")
-            print("-->", new_madlib)
+        # Temp Lists
+        temp_verb_list = madlib.verb_list
+        temp_noun_list = madlib.noun_list
+        temp_adj_list = madlib.adjective_list
 
-            for word in new_madlib.split():
+        # Temp Madlib
+        temp_madlib = madlib.whole_madlib
 
+        # Iterate through madlib and replace verb placeholders with new verbs
+        while verb_count < len(temp_verb_list):
+            print("Adding verbs...")
+            for word in temp_madlib.split(" "):
                 if "$VERB$" in word:
-                    temp_verb = madlib.verb_list.pop(0)
+                    temp_verb = temp_verb_list.pop(0)
                     print(temp_verb)
-                    word.replace('$VERB$', temp_verb)
+                    temp_madlib = temp_madlib.replace(word, temp_verb, 1)
                     print("verb replaced")
+                    verb_count += 1
 
+        # Iterate through madlib and replace noun placeholders with new nouns
+        while noun_count < len(temp_noun_list):
+            print("Adding nouns...")
+            for word in temp_madlib.split(" "):
                 if "$NOUN$" in word:
-                    temp_noun = madlib.noun_list.pop(0)
+                    temp_noun = temp_noun_list.pop(0)
                     print(temp_noun)
-                    word.replace('$NOUN$', temp_noun)
+                    temp_madlib = temp_madlib.replace(word, temp_noun, 1)
                     print("noun replaced")
+                    noun_count += 1
 
+        # Iterate through madlib and replace adjective placeholders with new adjectives
+        while adj_count < len(temp_adj_list):
+            print("Adding adjectives...")
+            for word in temp_madlib.split(" "):
                 if "$ADJECTIVE$" in word:
-                    temp_adj = madlib.adjective_list.pop(0)
+                    temp_adj = temp_adj_list.pop(0)
                     print(temp_adj)
-                    word.replace('$ADJECTIVE$', temp_adj)
+                    temp_madlib = temp_madlib.replace(word, temp_adj, 1)
                     print("adjective replaced")
+                    adj_count += 1
 
-
-            # for word in new_madlib.split():
-            #
-            #     # if "$NOUN$" in word:
-            #     temp_noun = madlib.noun_list.pop(0)
-            #     print(temp_noun)
-            #     word.replace('$NOUN$', temp_noun)
-            #     print("noun replaced")
-            #
-            #
-            # for word in new_madlib.split():
-            #
-            #     # if "$ADJECTIVE$" in word:
-            #     temp_adj = madlib.adjective_list.pop(0)
-            #     print(temp_adj)
-            #     word.replace('$ADJECTIVE$', temp_adj, madlib.adjective_list.length)
-            #     print("adjective replaced")
-
-
-            #For testing
             print("Here's the new madlib: ")
-            print(new_madlib)
-            break
+            madlib.new_madlib = temp_madlib
+            print(madlib.new_madlib)
+            UI.playAgain()
 
+    # Prompt the user to play again
+    def playAgain(self):
+
+        another = input("Would you like to play again? Y/N")
+
+        if another is "Y":
+            UI.displayMenu()
+        elif another is "N":
+            print("Thanks for playing!")
+        else:
+            print("please choose Y or N")
+            UI.playAgain()
 
 
 UI = main()
 
 madlib = Madlib("")
 
-# builder = MadlibBuilder()
+builder = MadlibBuilder()
 
 madlib_list = ("(1)Road Trip", "(2)A Trip to the Dentist", "(3)Moons of Jupiter")
 
