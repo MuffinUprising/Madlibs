@@ -31,14 +31,14 @@ class main():
 
         # Trip to the Dentist
         elif madlib_choice == 2:
-            print("Sorry, no trip to the dentist is available at this time")
+            print("Sorry, no trip to the dentist is available at this time, bummer. \n")
             UI.displayMenu()
         # Moons of Jupiter
         elif madlib_choice == 3:
-            print("sorry, there are no moon of Jupiter to explore at this time")
+            print("sorry, there are no moons of Jupiter to explore at this time.\n")
             UI.displayMenu()
         else:
-            print("Please enter choices 1-3")
+            print("Please enter choices 1-3. \n")
             UI.displayMenu()
 
     # Request Verb
@@ -165,8 +165,9 @@ class main():
             UI.displayMenu()
         elif another is "N":
             print("Thanks for playing!")
+            UI.displayMenu()
         else:
-            print("please choose Y or N")
+            print("Please choose Y or N")
             UI.playAgain()
 
 
