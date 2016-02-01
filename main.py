@@ -3,18 +3,19 @@ from MadlibBuilder import MadlibBuilder
 
 __author__ = 'casey'
 
-class main():
+def main():
+
 
     # Prompt User
-    def promptUser(self):
+    def promptUser():
         print("Thank you for choosing the Madlib Generator 6000!")
-        username = input("What is your name?")
-        print("Nice to meet you,", username)
+        # username = input("What is your name?")
+        # print("Nice to meet you,", username)
 
-        UI.displayMenu()
+        displayMenu()
 
     # User Menu
-    def displayMenu(self):
+    def displayMenu():
 
         global madlib
         while True:
@@ -26,60 +27,60 @@ class main():
 
         #  Road Trip
         if madlib_choice == 1:
-           UI.buildRoadTrip(madlib)
-           UI.wordChoice()
+           buildRoadTrip(madlib)
+           wordChoice()
 
         # Trip to the Dentist
         elif madlib_choice == 2:
             print("Sorry, no trip to the dentist is available at this time, bummer. \n")
-            UI.displayMenu()
+            displayMenu()
         # Moons of Jupiter
         elif madlib_choice == 3:
             print("sorry, there are no moons of Jupiter to explore at this time.\n")
-            UI.displayMenu()
+            displayMenu()
         else:
             print("Please enter choices 1-3. \n")
-            UI.displayMenu()
+            displayMenu()
 
     # Request Verb
-    def requestVerb(self):
+    def requestVerb():
         temp_verb = input("Please enter a verb: ")
         madlib.verb_list.append(temp_verb)
 
     # Request Noun
-    def requestNoun(self):
+    def requestNoun():
         temp_noun = input("Please enter a noun: ")
         madlib.noun_list.append(temp_noun)
 
     # Request Adjective
-    def requestAdjective(self):
+    def requestAdjective():
         temp_adj = input("Please enter an adjective: ")
         madlib.adjective_list.append(temp_adj)
 
     # Word Choice
-    def wordChoice(self):
+    def wordChoice():
         # Iterate through user_prompt_list.
         # Display word choice to user and get response
         while True:
             for word in user_prompt_list:
                 if word == "$VERB$":
-                    UI.requestVerb()
+                    requestVerb()
 
                 elif word == "$NOUN$":
-                    UI.requestNoun()
+                    requestNoun()
 
                 elif word == "$ADJECTIVE$":
-                    UI.requestAdjective()
+                    requestAdjective()
 
-            UI.addNewWords()
+            addNewWords()
 
     # Display new Madlib
-    def displayNewMadlib(self):
+    def displayNewMadlib():
         # Print the final Madlib to the user
         pass
 
     # Add Road Trip data to madlib
-    def buildRoadTrip(self, madlib):
+    def buildRoadTrip(madlib):
 
         road_trip = "Last summer my family and I went on a road trip to Yellowstone Park. \n" \
                    "We $VERB$ in the family $NOUN$ at dawn and headed west. To our surprise, \n" \
@@ -92,17 +93,17 @@ class main():
         madlib.whole_madlib = road_trip
 
         #build user prompt list
-        UI.buildUserPromptList()
+        buildUserPromptList()
 
     # Build list of prompts based on madlib
-    def buildUserPromptList(self):
+    def buildUserPromptList():
 
         for word in madlib.whole_madlib.split():
             if "$VERB$" in word or "$ADJECTIVE$" in word or "$NOUN$" in word:
                 user_prompt_list.append(word)
 
     # Add word to madlib and pass to Madlib object
-    def addNewWords(self):
+    def addNewWords():
 
         # Counters
         verb_count = 0
@@ -154,24 +155,30 @@ class main():
             print("Here's the new madlib: ")
             madlib.new_madlib = temp_madlib
             print(madlib.new_madlib)
-            UI.playAgain()
+            playAgain()
 
     # Prompt the user to play again
-    def playAgain(self):
+    def playAgain():
 
         another = input("Would you like to play again? Y/N")
 
         if another is "Y":
-            UI.displayMenu()
+            displayMenu()
         elif another is "N":
             print("Thanks for playing!")
-            UI.displayMenu()
+            displayMenu()
         else:
             print("Please choose Y or N")
-            UI.playAgain()
+            playAgain()
 
 
-UI = main()
+
+
+
+if '__name__' == '__main__':
+    main()
+# else:
+#     UI = main()
 
 madlib = Madlib("")
 
@@ -183,4 +190,5 @@ user_madlib = int
 
 user_prompt_list = []
 
-UI.promptUser()
+# main.promptUser()
+
